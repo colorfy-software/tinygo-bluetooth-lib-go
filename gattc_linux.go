@@ -238,6 +238,10 @@ func (c DeviceCharacteristic) WriteWithoutResponse(p []byte) (n int, err error) 
 	return len(p), nil
 }
 
+func (c DeviceCharacteristic) Write(p []byte) (n int, err error) {
+	return c.WriteWithoutResponse(p)
+}
+
 // EnableNotifications enables notifications in the Client Characteristic
 // Configuration Descriptor (CCCD). This means that most peripherals will send a
 // notification with a new value every time the value of the characteristic
