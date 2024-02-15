@@ -151,7 +151,7 @@ func (s *DeviceService) UUID() UUID {
 // Passing a nil slice of UUIDs will return a complete
 // list of characteristics.
 func (s *DeviceService) DiscoverCharacteristics(filterUUIDs []UUID) ([]DeviceCharacteristic, error) {
-	getCharacteristicsOp, err := s.service.GetCharacteristicsWithCacheModeAsync(bluetooth.BluetoothCacheModeUncached)
+	getCharacteristicsOp, err := s.service.GetCharacteristicsAsync()
 	if err != nil {
 		return nil, err
 	}
@@ -366,7 +366,7 @@ func (c *DeviceCharacteristic) Read(data []byte) (int, error) {
 // changes.
 func (c DeviceCharacteristic) EnableNotifications(callback func(buf []byte)) error {
 	if (c.properties&genericattributeprofile.GattCharacteristicPropertiesNotify == 0) &&
-	   (c.properties&genericattributeprofile.GattCharacteristicPropertiesIndicate == 0) {
+		(c.properties&genericattributeprofile.GattCharacteristicPropertiesIndicate == 0) {
 		return errNoNotify
 	}
 
